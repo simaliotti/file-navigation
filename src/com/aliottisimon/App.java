@@ -8,25 +8,10 @@ public class App {
 	Fonctions fx = new Fonctions();
 
 	public void launch() throws IOException {
+		
 		System.out.println("Bienvenue dans la console");
 		System.out.println("");
-		System.out.println("=======================================");
-		System.out.println("");
-		System.out.println("      Les commandes disponibles sont : ");
-		System.out.println("");
-		System.out.println("      cd = change directory");
-		System.out.println("      cd.. = parent directory");
-		System.out.println("      ls = list elements");
-		System.out.println("      pwd.. = display current directory");
-		System.out.println("      rm.. = remove file or folder");
-		System.out.println("      mkdir = create folder");
-		System.out.println("      touch = create file");
-		System.out.println("      Exit : exit the program");
-		System.out.println("      Exemeple : touch file.txt");
-		System.out.println("      Exemeple : mkdir file.txt");
-		System.out.println("      Exemeple : cd subfolder");
-		System.out.println("");
-		System.out.println("======================================");
+		fx.help();
 		System.out.println("");
 		fx.pwd();
 
@@ -68,6 +53,9 @@ public class App {
 				break;
 			case "touch":
 				fx.touch(path);
+				break;
+			case "help":
+				fx.help();
 				break;
 			case "exit":
 				again = false;
