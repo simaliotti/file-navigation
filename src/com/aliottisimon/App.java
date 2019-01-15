@@ -7,6 +7,10 @@ public class App {
 	MyScanner sc = new MyScanner();
 	Fonctions fx = new Fonctions();
 
+	/**
+	 * Lance le programme console 
+	 * @throws IOException
+	 */
 	public void launch() throws IOException {
 		
 		System.out.println("Bienvenue dans la console");
