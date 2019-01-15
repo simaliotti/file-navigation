@@ -28,9 +28,9 @@ public class Fonctions {
 	/**
 	 * Créé un nouveau dossier
 	 */
-	public void mkdir() {
+	public void mkdir(String chemin) {
 		String path = file.getAbsolutePath();
-		path = path + "\\\\" + sc.input();
+		path = path + "\\\\" + chemin;
 		File fileMkdir = new File(path);
 		fileMkdir.mkdir();
 		System.out.println("Your folder has been created");
@@ -42,9 +42,9 @@ public class Fonctions {
 	 * 
 	 * @throws IOException
 	 */
-	public void touch() throws IOException {
+	public void touch(String chemin) throws IOException {
 		String path = file.getAbsolutePath();
-		path = path + "\\\\" + sc.input();
+		path = path + "\\\\" + chemin;
 		File fileTouch = new File(path);
 		fileTouch.createNewFile();
 		System.out.println("Your file has been created");
@@ -54,23 +54,35 @@ public class Fonctions {
 	/**
 	 * Supprime un dossier ou fichier
 	 */
-	public void rm() {
-		
+	public void rm(String chemin) {
+
 		String path = file.getAbsolutePath();
-		path = path + "\\\\" + sc.input();
+		path = path + "\\\\" + chemin;
 		File fileRm = new File(path);
-		
+
 		String[] contentTab = fileRm.list();
-		boolean isEmpty = contentTab[0].isEmpty();
-		if(isEmpty) {
+
+		boolean isEmpty;
+
+		try {
+			isEmpty = contentTab[0].isEmpty();
+			isEmpty = false;
+		} catch (Exception e) {
+			isEmpty = true;
+		}
+
+		if (isEmpty) {
 			fileRm.delete();
 			System.out.println("Your file/folder has been removed");
 		} else {
-			
+			for (String string : contentTab) {
+				File fileDelete = new File(path + "\\\\" + string);
+				fileDelete.delete();
+
+			}
+			fileRm.delete();
+			System.out.println("Your file/folder has been removed");
 		}
-		
-		
-	
 
 	}
 
@@ -78,15 +90,15 @@ public class Fonctions {
 	 * Affiche le repertoire courant
 	 */
 	public void pwd() {
-		System.out.println(file.getAbsolutePath());
+		System.out.println("Current path "+file.getAbsolutePath());
 	}
 
 	/**
 	 * change dans un repertoire enfant
 	 */
-	public void cd() {
+	public void cd(String chemin) {
 		String path = file.getAbsolutePath();
-		path = path + "\\\\" + sc.input();
+		path = path + "\\\\" + chemin;
 		File fileCd = new File(path);
 		this.file = fileCd;
 	}
