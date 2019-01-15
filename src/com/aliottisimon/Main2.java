@@ -183,6 +183,8 @@ public class Main2 {
 			System.out.println(hello);
 			System.out.println(bye);
 
+		//pour tester le type d'un object, faire readObject dans un object et tester avec instanceOf
+			
 			
 			}
 
