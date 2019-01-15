@@ -59,8 +59,18 @@ public class Fonctions {
 		String path = file.getAbsolutePath();
 		path = path + "\\\\" + sc.input();
 		File fileRm = new File(path);
-		fileRm.delete();
-		System.out.println("Your file/folder has been removed");
+		
+		String[] contentTab = fileRm.list();
+		boolean isEmpty = contentTab[0].isEmpty();
+		if(isEmpty) {
+			fileRm.delete();
+			System.out.println("Your file/folder has been removed");
+		} else {
+			
+		}
+		
+		
+	
 
 	}
 
