@@ -73,7 +73,9 @@ public class ServiceClub {
 
 	public void deleteClub(MyScanner sc) {
 		String nomClub = sc.input();
-		File file = new File("/Users/simonaliotti/club/"+nomClub+".txt");
-		file.delete();
+		File fileClub = new File("/Users/simonaliotti/club/"+nomClub+".txt");
+		fileClub.delete();
+		File fileMembre = new File("/Users/simonaliotti/membres/Membres-"+nomClub+".txt");
+		fileMembre.delete();
 	}
 }

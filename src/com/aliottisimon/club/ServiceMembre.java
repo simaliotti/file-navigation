@@ -12,12 +12,13 @@ import java.util.List;
 
 public class ServiceMembre {
 
-	public static void writeMembre(MyScanner sc, Club club)
+	public static void writeMembre(MyScanner sc)
 			throws FileNotFoundException, IOException, ClassNotFoundException {
 
 		// Récupères les données du fichiers
 		List<Membre> listMembres = new LinkedList();
-		File file = new File("/Users/simonaliotti/membres/" + club.getIdMembres() + ".txt");
+		String nameClub = sc.input();
+		File file = new File("/Users/simonaliotti/membres/Membres-"+nameClub+ ".txt");
 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream ois = new ObjectInputStream(fis)) {
 
@@ -83,12 +84,13 @@ public class ServiceMembre {
 		return membre;
 	}
 
-	public void deleteMembre(MyScanner sc, Club club) throws ClassNotFoundException {
+	public void deleteMembre(MyScanner sc) throws ClassNotFoundException {
 
 		
 		// Récupères les données du fichiers
 		List<Membre> listMembres = new LinkedList();
-		File file = new File("/Users/simonaliotti/membres/" + club.getIdMembres() + ".txt");
+		String nameClub = sc.input();
+		File file = new File("/Users/simonaliotti/membres/Membres-" + nameClub + ".txt");
 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream ois = new ObjectInputStream(fis)) {
 

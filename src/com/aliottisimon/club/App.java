@@ -2,6 +2,7 @@ package com.aliottisimon.club;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class App {
 
@@ -11,20 +12,57 @@ public class App {
 
 	public void launchApp() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("Bienvenue dans l'application club");
-		//sclub.writeClub(sc);
-		 //sclub.listClub();
-		 //sclub.readClub(sc);
-		// sclub.deleteClub(sc);
 
-		// teste serviceMembre
+		System.out.println("--------------------------------");
 
-		Club club = new Club();
-		club.setName("simon");
-		club.setIdMembres("Membres-" + club.getName());
-		//smembre.writeMembre(sc, club);
-		//smembre.readMembre(sc);
-		smembre.deleteMembre(sc, club);
-		smembre.readMembre(sc);
+		System.out.println("Voici les fonctions dispnibles :");
+		System.out.println("Créer un club : ");
+		System.out.println("Lire les données d'un club : ");
+		System.out.println("Lister les clubs : ");
+		System.out.println("Supprimer un club : ");
+
+		System.out.println("Créer un membre : ");
+		System.out.println("Lister les membres : ");
+		System.out.println("Supprimer un membre : ");
+
+		System.out.println("-----------------------");
+
+		boolean again = true;
+
+		do {
+
+			String command = sc.input();
+
+			switch (command) {
+			case "createClub":
+				sclub.writeClub(sc);
+				break;
+			case "readClub":
+				sclub.readClub(sc);
+				break;
+			case "listClubs":
+				sclub.listClub();
+				break;
+			case "deleteClub":
+				sclub.deleteClub(sc);
+				break;
+
+			case "createMembre":
+
+				smembre.writeMembre(sc);
+				break;
+
+			case "listMembres":
+				smembre.readMembre(sc);
+				break;
+			case "deleteMembre":
+				smembre.deleteMembre(sc);
+				break;
+			case "exit":
+				again = false;
+				break;
+			}
+		} while (again);
+
 	}
-
 }
