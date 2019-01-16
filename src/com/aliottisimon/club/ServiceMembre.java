@@ -78,7 +78,6 @@ public class ServiceMembre {
 	public static void readMembre(MyScanner sc, String nomClub) throws FileNotFoundException, IOException, ClassNotFoundException {
 
 		List<Membre> listMembres = new LinkedList();
-		System.out.println("Veuillez saisir le nom du club dont vous souhaitez afficher les membres :");
 		
 		File file = new File("/Users/simonaliotti/membres/Membres-" + nomClub + ".txt");
 		

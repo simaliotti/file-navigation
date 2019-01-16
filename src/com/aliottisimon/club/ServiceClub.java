@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Classe de services permettant de gérer les clubs
@@ -95,7 +97,9 @@ public class ServiceClub {
 	/**
 	 * Affiche la liste des clubs
 	 */
-	public void listClub() {
+	public List<String> listClub() {
+		List<String> listClubs = new LinkedList<>();
+		
 		File file = new File("/Users/simonaliotti/club");
 		System.out.println("Liste des clubs enregistrés :");
 		String[] tabClub = file.list();
@@ -105,9 +109,11 @@ public class ServiceClub {
 			for (String string : tabClub) {
 				String[] nameClub = string.split("(.txt)");
 				System.out.println(nameClub[0]);
+				listClubs.add(nameClub[0]);
 		}
 		
 		}
+		return listClubs;
 	}
 
 	/**

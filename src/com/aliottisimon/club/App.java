@@ -1,8 +1,11 @@
 package com.aliottisimon.club;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.LinkedList;
+import java.util.List;
 
 public class App {
 
@@ -10,9 +13,9 @@ public class App {
 	ServiceClub sclub = new ServiceClub();
 	ServiceMembre smembre = new ServiceMembre();
 
-	
 	/**
 	 * Lance l'application
+	 * 
 	 * @throws FileNotFoundException
 	 * @throws ClassNotFoundException
 	 * @throws IOException
@@ -38,6 +41,7 @@ public class App {
 		boolean again = true;
 
 		do {
+			boolean clubExist = false;
 
 			String command = sc.input();
 
@@ -58,18 +62,36 @@ public class App {
 			case "createMembre":
 				System.out.println("Veuillez saisir le nom du club dans lequel vous souhaitez ajouter un membre :");
 				String nameClub = sc.input();
-				smembre.writeMembre(sc, nameClub);
+				clubExist = isClubExist(nameClub);
+				if (clubExist) {
+					smembre.writeMembre(sc, nameClub);
+				} else {
+					System.out.println("Le club n'existe pas. Veuillez d'abord le créer");
+				}
+
 				break;
 
 			case "listMembres":
 				System.out.println("Veuillez saisir le nom du club duquel vous souhaitez afficher les membres :");
 				String nameClub2 = sc.input();
-				smembre.readMembre(sc, nameClub2);
+				clubExist = isClubExist(nameClub2);
+				if (clubExist) {
+					smembre.readMembre(sc, nameClub2);
+				} else {
+					System.out.println("Le club n'existe pas. Veuillez d'abord le créer");
+				}
+				
 				break;
 			case "deleteMembre":
 				System.out.println("Veuillez saisir le nom du club dans lequel vous souhaitez supprimer un membre :");
 				String nameClub3 = sc.input();
-				smembre.deleteMembre(sc, nameClub3);
+				clubExist = isClubExist(nameClub3);
+				if (clubExist) {
+					smembre.deleteMembre(sc, nameClub3);
+				} else {
+					System.out.println("Le club n'existe pas. Veuillez d'abord le créer");
+				}
+				
 				break;
 			case "exit":
 				again = false;
@@ -80,6 +102,36 @@ public class App {
 
 	}
 
-	
+	public boolean isClubExist(String name) {
+		boolean clubExist = false;
+		List<String> listClubs = new LinkedList<>();
+		listClubs = listClub();
+		
+		
+		for (String club : listClubs) {
+			if (club.equals(name)) {
+				clubExist = true;
+			} else {
+				clubExist = false;
+			}
+		}
+		return clubExist;
+	}
 
+	/**
+	 * Retourne la liste des clubs pour la vérification
+	 */
+	public List<String> listClub() {
+		List<String> listClubs = new LinkedList<>();
+		
+		File file = new File("/Users/simonaliotti/club");
+		String[] tabClub = file.list();
+		
+			for (String string : tabClub) {
+				String[] nameClub = string.split("(.txt)");
+				listClubs.add(nameClub[0]);	
+		}
+		return listClubs;
+	}
+	
 }
