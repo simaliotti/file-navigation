@@ -10,14 +10,28 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Classe de services permettant de gerer les membres
+ * @author simonaliotti
+ *
+ */
 public class ServiceMembre {
 
-	public static void writeMembre(MyScanner sc)
+	
+	/**
+	 * Créé un membre
+	 * @param sc
+	 * @param nameClub
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public static void writeMembre(MyScanner sc, String nameClub)
 			throws FileNotFoundException, IOException, ClassNotFoundException {
 
 		// Récupères les données du fichiers
 		List<Membre> listMembres = new LinkedList();
-		String nameClub = sc.input();
+		
 		File file = new File("/Users/simonaliotti/membres/Membres-"+nameClub+ ".txt");
 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -46,20 +60,28 @@ public class ServiceMembre {
 					oop.writeObject(membreDejaPresentDansFichier);
 				}
 			}
-
+			System.out.println("Membre créé avec succès");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void readMembre(MyScanner sc) throws FileNotFoundException, IOException, ClassNotFoundException {
+	/**
+	 * Affiche la liste des membres
+	 * @param sc
+	 * @param nomClub
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public static void readMembre(MyScanner sc, String nomClub) throws FileNotFoundException, IOException, ClassNotFoundException {
 
 		List<Membre> listMembres = new LinkedList();
 		System.out.println("Veuillez saisir le nom du club dont vous souhaitez afficher les membres :");
-		String nomClub = sc.input();
+		
 		File file = new File("/Users/simonaliotti/membres/Membres-" + nomClub + ".txt");
-		System.out.println(file.getAbsolutePath());
+		
 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream ois = new ObjectInputStream(fis)) {
 
@@ -74,22 +96,37 @@ public class ServiceMembre {
 
 	}
 
+	/**
+	 * Méthode qui créé un objet membre
+	 * @param sc
+	 * @return
+	 */
 	public static Membre createMember(MyScanner sc) {
 		Membre membre = new Membre();
+		System.out.println("Veuillez saisir l'age du membre :");
 		membre.setAge(Integer.parseInt(sc.input()));
+		System.out.println("Veuillez saisir le prénom du membre :");
 		membre.setFirstname(sc.input());
+		System.out.println("Veuillez saisir le nom du membre :");
 		membre.setName(sc.input());
+		System.out.println("Veuillez saisir le type de licence du membre:");
 		membre.setLicence(sc.input());
 
 		return membre;
 	}
 
-	public void deleteMembre(MyScanner sc) throws ClassNotFoundException {
+	/**
+	 * Supprimer un membre
+	 * @param sc
+	 * @param nameClub
+	 * @throws ClassNotFoundException
+	 */
+	public void deleteMembre(MyScanner sc, String nameClub) throws ClassNotFoundException {
 
 		
 		// Récupères les données du fichiers
 		List<Membre> listMembres = new LinkedList();
-		String nameClub = sc.input();
+		
 		File file = new File("/Users/simonaliotti/membres/Membres-" + nameClub + ".txt");
 
 		try (FileInputStream fis = new FileInputStream(file); ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -103,8 +140,8 @@ public class ServiceMembre {
 		}
 
 		// Ecrit dans le fichier
+		System.out.println("Veuillez saisir le nom du membre à supprimer");
 		String nameToDelete = sc.input();
-
 		try (FileOutputStream fop = new FileOutputStream(file); ObjectOutputStream oop = new ObjectOutputStream(fop)) {
 
 			if (!file.exists()) {
@@ -114,10 +151,11 @@ public class ServiceMembre {
 				for (Membre membreDejaPresentDansFichier : listMembres) {
 					if(!(membreDejaPresentDansFichier.getName().equals(nameToDelete))) {
 						oop.writeObject(membreDejaPresentDansFichier);
+					} else if (membreDejaPresentDansFichier.getName().equals(nameToDelete)) {
+						deleteFileMembre(nameToDelete);
 					}
-					
 				}
-			
+			System.out.println("Membre supprimé avec succès");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,4 +163,14 @@ public class ServiceMembre {
 
 	}
 
+	/**
+	 * Supprime un membre du fichier
+	 * @param nomClub
+	 */
+	public void deleteFileMembre(String nomClub) {
+		File fileMembre = new File("/Users/simonaliotti/membres/Membres-"+nomClub+".txt");
+		fileMembre.delete();
+		
+	}
+	
 }

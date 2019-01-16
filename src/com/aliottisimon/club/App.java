@@ -10,20 +10,28 @@ public class App {
 	ServiceClub sclub = new ServiceClub();
 	ServiceMembre smembre = new ServiceMembre();
 
+	
+	/**
+	 * Lance l'application
+	 * @throws FileNotFoundException
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void launchApp() throws FileNotFoundException, ClassNotFoundException, IOException {
 		System.out.println("Bienvenue dans l'application club");
 
 		System.out.println("--------------------------------");
 
 		System.out.println("Voici les fonctions dispnibles :");
-		System.out.println("Créer un club : ");
-		System.out.println("Lire les données d'un club : ");
-		System.out.println("Lister les clubs : ");
-		System.out.println("Supprimer un club : ");
+		System.out.println("Créer un club : createClub");
+		System.out.println("Lire les données d'un club : readClub");
+		System.out.println("Lister les clubs : listClubs");
+		System.out.println("Supprimer un club : deleteClub");
 
-		System.out.println("Créer un membre : ");
-		System.out.println("Lister les membres : ");
-		System.out.println("Supprimer un membre : ");
+		System.out.println("Créer un membre : createMembre");
+		System.out.println("Lister les membres : listMembres");
+		System.out.println("Supprimer un membre : deleteMembre");
+		System.out.println("Exit : exit");
 
 		System.out.println("-----------------------");
 
@@ -48,21 +56,30 @@ public class App {
 				break;
 
 			case "createMembre":
-
-				smembre.writeMembre(sc);
+				System.out.println("Veuillez saisir le nom du club dans lequel vous souhaitez ajouter un membre :");
+				String nameClub = sc.input();
+				smembre.writeMembre(sc, nameClub);
 				break;
 
 			case "listMembres":
-				smembre.readMembre(sc);
+				System.out.println("Veuillez saisir le nom du club duquel vous souhaitez afficher les membres :");
+				String nameClub2 = sc.input();
+				smembre.readMembre(sc, nameClub2);
 				break;
 			case "deleteMembre":
-				smembre.deleteMembre(sc);
+				System.out.println("Veuillez saisir le nom du club dans lequel vous souhaitez supprimer un membre :");
+				String nameClub3 = sc.input();
+				smembre.deleteMembre(sc, nameClub3);
 				break;
 			case "exit":
 				again = false;
+				System.out.println("Bye bye");
 				break;
 			}
 		} while (again);
 
 	}
+
+	
+
 }
